@@ -4,17 +4,21 @@ RSpec.describe GeocodeService do
   describe "class methods" do 
     describe ".get_coordinates" do 
       it "can return coordinates for a city" do 
-        location = "Denver,Co"
-        response = GeocodeService.get_coordinates(location)
-        # :latLng=>{:lat=>39.74001, :lng=>-104.99202},
-        expect(response).to be_a(Hash)
-        expect(response[:results]).to be_an(Array)
-        expect(response[:results][0]).to be_a(Hash)
-        expect(response[:results][0][:locations]).to be_an(Array)
-        expect(response[:results][0][:locations][0]).to be_a(Hash)
-        expect(response[:results][0][:locations][0][:latLng]).to be_a(Hash)
-        expect(response[:results][0][:locations][0][:latLng]).to have_key(:lat)
-        expect(response[:results][0][:locations][0][:latLng]).to have_key(:lng)
+        location_service = GeocodeService.get_coordinates("denver,co")
+        expect(location_service).to be_a(Hash)
+        expect(location_service[:results]).to be_an(Array) 
+
+        location = location_service[:results].first 
+        expect(location[:providedLocation]).to be_a(Hash)
+        expect(location[:providedLocation][:location]).to eq("denver,co")
+
+        expect(location[:locations]).to be_an(Array)
+        expect(location[:locations].first).to be_a(Hash)
+        expect(location[:locations].first[:latLng]).to be_a(Hash)
+        expect(location[:locations].first[:latLng][:lat]).to be_a(Float)
+        expect(location[:locations].first[:latLng][:lng]).to be_a(Float)
+        expect(location[:locations].first[:latLng][:lng]).to eq(-104.99202)
+        expect(location[:locations].first[:latLng][:lat]).to eq(39.74001)
       end
     end
   end

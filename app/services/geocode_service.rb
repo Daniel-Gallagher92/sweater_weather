@@ -1,14 +1,23 @@
 class GeocodeService
-  def self.conn 
-    Faraday.new(url: "https://www.mapquestapi.com/geocoding/v1/address?") do |faraday|
-      faraday.params[:key] = Rails.application.credentials.MAPQUEST[:api_key]
-    end
+  
+  def self.get_coordinates(location)
+    get_url("/geocoding/v1/address?location=#{location}")
   end
 
-  def self.get_coordinates(location)
-    response = conn.get do |faraday|
-      faraday.params["location"] = location
-    end
+  def self.get_distance(origin, destination)
+    get_url("/directions/v2/route?from=#{origin}&to=#{destination}")
+  end
+
+  private 
+
+  def self.get_url(url)
+    response = conn.get(url)
     JSON.parse(response.body, symbolize_names: true)
+  end
+
+  def self.conn 
+    Faraday.new(url: "https://www.mapquestapi.com") do |faraday|
+      faraday.params[:key] = Rails.application.credentials.MAPQUEST[:api_key]
+    end
   end
 end

@@ -1,19 +1,11 @@
 class Api::V0::ForecastController < ApplicationController 
-  before_action :location?
 
-  def index 
-    forecast = ForecastFacade.get_forecast(@coordinates[:lat])
-    render json: ForecastSerializer.weather(forecast)
-  end
-
-
-  private 
-
-  def location? 
-    if params[:location].present? 
-      @coordinates = GeocodeFacade.get_coordinates(params[:location]) 
-    else 
+  def index
+    if params[:location].nil? || params[:location].empty?
       render json: {error: "Please provide a location."}, status: 400
+    else
+      forecast = ForecastFacade.get_forecast(params[:location])
+      render json: ForecastSerializer.new(forecast)
     end
   end
 end
