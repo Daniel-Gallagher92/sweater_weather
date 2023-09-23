@@ -3,8 +3,6 @@ class Api::V0::UsersController < ApplicationController
   
   def create 
     @user = User.create!(user_params)
-    @user.update(api_key: SecureRandom.hex)
-
     render json: UserSerializer.new(@user), status: 201
   end
 
