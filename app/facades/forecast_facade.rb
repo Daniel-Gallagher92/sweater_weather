@@ -13,7 +13,7 @@ class ForecastFacade
   end
 
 
-  private 
+  private
 
   def self.current_weather(forecast) 
     {
