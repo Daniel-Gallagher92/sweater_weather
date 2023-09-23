@@ -2,7 +2,8 @@ class Api::V0::ForecastController < ApplicationController
   before_action :location?
 
   def index 
-    
+    forecast = ForecastFacade.get_forecast(@coordinates[:lat])
+    render json: ForecastSerializer.weather(forecast)
   end
 
 
