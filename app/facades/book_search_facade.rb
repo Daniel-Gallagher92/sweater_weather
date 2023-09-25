@@ -8,7 +8,7 @@ class BookSearchFacade
 
     weather = ForecastService.get_weather(lat, lon)
 
-    books = {destination: location,
+    books = { destination: location,
       forecast: { summary: weather[:current][:condition][:text],
                   temperature: weather[:current][:temp_f] 
                 }, 
