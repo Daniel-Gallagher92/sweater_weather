@@ -1,3 +1,5 @@
+require "time"
+
 class ForecastFacade 
   def self.get_forecast(location)
     location = GeocodeService.get_coordinates(location)
@@ -45,7 +47,7 @@ class ForecastFacade
   def self.hourly_weather(forecast) 
     forecast[:forecast][:forecastday].first[:hour].map do |hour| 
       {
-        time: hour[:time],
+        time: Time.parse(hour[:time]).strftime("%H:%M"),
         temp_f: hour[:temp_f],
         condition_text: hour[:condition][:text],
         condition_icon: hour[:condition][:icon]
