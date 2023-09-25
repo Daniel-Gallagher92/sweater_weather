@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v0 do 
       resources :forecast, only: [:index]
       resources :users, only: [:create]
+      resources :sessions, only: [:create]
     end
     namespace :v1 do 
       get "/book-search", to: "book_search#index"

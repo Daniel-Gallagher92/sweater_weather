@@ -135,4 +135,13 @@ RSpec.describe "Forecast Request" do
     expect(forecast[:data][:attributes][:hourly_weather].first).to_not have_key :avg_vis_km
     expect(forecast[:data][:attributes][:hourly_weather].first).to_not have_key :avg_vis_miles
   end
+
+  it "returns an error if no location is provided" do 
+    headers = { "CONTENT_TYPE" => "application/json", "ACCEPT" => "application/json" }
+    get "/api/v0/forecast", headers: headers, params: {location: ""}
+    forecast = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to_not be_successful
+    expect(response).to have_http_status(400)
+  end
 end
