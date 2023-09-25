@@ -24,7 +24,7 @@ RSpec.describe "User API", type: :request do
       expect(user_data[:data]).to have_key(:id)
       expect(user_data[:data][:id]).to eq(new_user.id.to_s)
       expect(user_data[:data][:attributes][:email]).to eq(new_user.email)
-      expect(user_data[:data][:attributes][:auth_token]).to eq(new_user.auth_token)
+      expect(user_data[:data][:attributes][:api_key]).to eq(new_user.api_key)
     end
 
     it "cannot create a user w/ invalid credentials" do 
