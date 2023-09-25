@@ -8,7 +8,7 @@ class Api::V1::BookSearchController < ApplicationController
       location = params[:location]
       quantity = params[:quantity]
       books = BookSearchFacade.get_books(location, quantity)
-      render json: BookSearchSerializer.new(books)
+      render json: BooksSerializer.new(books)
     end
   end
 end

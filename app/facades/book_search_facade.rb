@@ -19,8 +19,8 @@ class BookSearchFacade
       BookSearch.new(books)
   end
 
-  def self.book_hash(book_search)
-    book_search[:docs].map do |book|
+  def self.book_hash(books)
+    books[:docs].map do |book|
       {
         isbn: book[:isbn][0],
         title: book[:title],
