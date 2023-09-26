@@ -15,7 +15,7 @@ RSpec.describe "Sessions", type: :request do
       post "/api/v0/sessions", params: JSON.generate(user_params), headers: headers
 
       expect(response).to be_successful
-      expect(response).to have_http_status(:created)
+      expect(response).to have_http_status(200)
 
       session_data = JSON.parse(response.body, symbolize_names: true)[:data]
       
