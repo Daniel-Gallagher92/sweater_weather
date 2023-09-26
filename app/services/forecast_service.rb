@@ -4,7 +4,8 @@ class ForecastService
     response = conn.get("/v1/forecast.json?&days=5&q=#{lat},#{lon}") do |faraday| 
       faraday.params[:lat] = lat
       faraday.params[:lon] = lon
-      faraday.params[:units] = "imperial"
+      # faraday.params[:units] = "imperial" for extension
+      # faraday.params[:units] = "metric" for extension
     end
     JSON.parse(response.body, symbolize_names: true)
   end
