@@ -4,7 +4,7 @@ class GeocodeService
     get_url("/geocoding/v1/address?location=#{location}")
   end
 
-  def self.get_distance(origin, destination)
+  def self.get_directions(origin, destination)
     get_url("/directions/v2/route?from=#{origin}&to=#{destination}")
   end
 
